@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Forms
+{% endblock title %}
+
+<style>
+    article::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    section {
+        width: 33.3%;
+    }
+</style>
+
+{% block content %}
+    <article>
+        <section>
+            <a href="{{ url_for('forms.caught') }}">Caught form</a>
+        </section>
+        <section>
+            <a href="{{ url_for('forms.reassign') }}">Reassign form</a>
+        </section>
+        <section>
+            <a href="{{ url_for('forms.op_out') }}">Op-out form</a>
+        </section>
+        <section>
+            <a href="{{ url_for('forms.report') }}">Report form</a>
+        </section>
+    </article>
+{% endblock content %}

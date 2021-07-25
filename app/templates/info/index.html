@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\..\..\app\static\index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>NC Chase 21</title>
+</head>
+<body>
+    <div id="backGround">
+        <img id="logo" src="../../static/assets/MainLogo-removebg.png" alt="Logo of chase21" onmousemove="openNav()">
+        <h3 id='subtitle'><strong><i>--Brought to you by THE CLUB</i></strong></h3>
+    </div>
+    <div id="navContainer">
+        <script>
+            function openNav() {
+                document.getElementById("navContainer").style.width = "100%";
+            }
+            function closeNav() {
+                document.getElementById("navContainer").style.width = "0%";
+            }
+        </script>
+        <nav>
+            <a href="javascript:void(0)" id="closeBtn" onclick="closeNav()">&times;</a>
+            <div style="top: 0; left: 0;"><a href="../info/index.html">Home</a></div>
+            <div style="top: 0; right: 0;"><a href="../info/scores.html">Current game</a></div>
+            <div style="bottom: 0; left: 0;"><a href="../forms/all_forms.html">Forms</a></div>
+            <div style="bottom: 0; right: 0;"><a href="../info/contact.html">Contact</a></div>
+        </nav>
+    </div>
+</body>
+</html>
