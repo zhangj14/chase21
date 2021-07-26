@@ -7,20 +7,20 @@ def get_db():
     # get database connection
     # if connection exists in g, return db stored in g
     # if not, create new connection, add to g, then return
-    # if "db" not in g:
-    db = mysql.connector.connect(**config.mysql)
-    return db, db.cursor()
+    if "db" not in g:
+        g.db = mysql.connector.connect(**config.mysql)
+    return g.db, g.db.cursor()
 
 def close_db(e=None):
     # remove database from current session
     # close cursor and connection
-    db = g.pop("db", None)
-    if db:
-        db.close()
+    cnx = g.pop("db", None)
+    if cnx:
+        cnx.cursor().close()
+        cnx.close()
 
 def init_db():
-    db = get_db() # get db connection
-    cursor = db.cursor() # create cursor
+    db, cursor = get_db() # get db connection, cursor
     # with clause is used for error handling and close the file properly
     with open("app/schema2.sql") as f:
         # mulit used to return an iterator
