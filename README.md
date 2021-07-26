@@ -1,4 +1,4 @@
-# 3tcd_web
+# NC Chase
 
 Instructions:
 1. Clone the repo.
