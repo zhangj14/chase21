@@ -16,22 +16,22 @@ def caught():
         chaser_id = request.form["chaser_id"]
         runner_id = request.form['runner_id']
         valid = True
-        db = get_db().cursor()
+        db, cursor = get_db()
         error = None
         if not chaser_id:
             error = "Chaser ID is required."
         elif not runner_id:
             error = "Runner ID is required"
         else:
-            db.execute(f"SELECT runner_id FROM all_players \
+            cursor.execute(f"SELECT runner_id FROM all_players \
                        WHERE chaser_id = '{chaser_id}' LIMIT 1")
-            if db.fetchone() != runner_id:
+            if cursor.fetchone() != runner_id:
                 valid = False
                 error = "Please double check your Chaser ID and Runner ID."
-            db.execute(f"INSERT INTO caught (chaser_id, runner_id, valid) \
+            cursor.execute(f"INSERT INTO caught (chaser_id, runner_id, valid) \
                        values ('{chaser_id}', '{runner_id}', {valid})")
         if error is None:
-            db.execute(f"UPDATE all_players SET game_status = 'dead' \
+            cursor.execute(f"UPDATE all_players SET game_status = 'dead' \
                        WHERE chaser_id = {runner_id}")
     return render_template("forms/caught.html")
 
