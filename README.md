@@ -10,3 +10,11 @@ Instructions:
 7. Install following packages "flask", "mysql-python-connector".
 8. In the terminal type "set flask_app=app", "set flask_env=development","flask run".
 9. Now ctrl+click the link.
+
+Config.py:
+mysql {
+    'username': 'root',
+    'host': 'localhost',
+    'database': 'nc_chase_3',
+    'password': 'YourPassword',
+}
