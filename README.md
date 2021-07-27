@@ -1,5 +1,8 @@
 # NC Chase
 
+Don't worry about the LinkedList class and Person class in admin.py.
+They were created to store user information, but it's not very efficient.
+
 Instructions:
 1. Clone the repo.
 2. Open the root directory in code editor.
