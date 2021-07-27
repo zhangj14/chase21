@@ -10,6 +10,7 @@ Instructions:
 7. Install following packages "flask", "mysql-python-connector".
 8. In the terminal type "set flask_app=app", "set flask_env=development","flask run".
 9. Now ctrl+click the link.
+10. Please create a new branch for any changes.
 
 Config.py:
 mysql {
