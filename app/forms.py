@@ -49,12 +49,45 @@ def op_out():
     if request.method == "POST":
         email = request.form["email"]
         reasons = request.form["reasons"]
-        db = get_db().cursor()
-        db.execute(f"INSERT INTO opt_out (email, reasons) VALUES ({email}, {reasons})")
+        print(email)
+        db, cursor = get_db()
+        cursor.execute(f"INSERT INTO opt_out (email, reasons) VALUES ('{email}', '{reasons}')")
+        cursor.execute(f"UPDATE all_players SET game_status = 'opt_out' WHERE email = '{email}'")
     return render_template("forms/opt_out.html")
 
 @bp.route("/reassign", methods=("GET", "POST"))
 def reassign():
+    if request.method == "POST":
+        chaser_id = request.form["chaser_id"]
+        fname = request.form["fname"]
+        db, cursor = get_db()
+        valid = False
+        cursor.execute(f"SELECT * FROM all_players WHERE chaser_id = '{chaser_id}'")
+        player = cursor.fetchone()
+        if player:
+            if fname != player['fname']:
+                message = "Please double check your first name and chaser ID."
+            # elif player['reassign_count'] > 4:
+            #     message = "Sorry, you don't have any reassign chances left."
+            else:
+                # mark the runner as absent
+                cursor.execute(f"UPDATE all_players SET game_status = 'absent' WHERE chaser_id = '{player['runner_id']}'")
+                cursor.execute(f"UPDATE all_players SET chaser_count = chaser_count - 1 WHERE chaser_id = '{player['runner_id']}'")
+                # select a random runner
+                cursor.execute(f"SELECT id, chaser_id FROM all_players WHERE year_level = '{player['year_level']}' AND house <> '{player['house']}' ORDER BY chaser_count LIMIT 1")
+                new_runner = cursor.fetchone()
+                # increase the chaser_count of the new runner
+                cursor.execute(f"UPDATE all_players SET chaser_count = chaser_count + 1 WHERE id = {new_runner['id']}")
+                # update the player's runner and reassgin count
+                cursor.execute(f"UPDATE all_players SET runner_id = '{new_runner['chaser_id']}', reassign_count = reassign_count + 1 WHERE id = {player['id']}")
+                message = "Successful."
+                valid = True
+            cursor.execute(f"INSERT INTO reassign (chaser_id, fname, email, valid) VALUES ('{chaser_id}', '{fname}', '{player['email']}', {valid})")
+        else:
+            cursor.execute(f"INSERT INTO reaassign (chaser_id, fname, valid) VALUES ('{chaser_id}', '{fname}', {valid})")
+            message = "Invalid chaser ID."
+        db.commit()
+        flash(message)
     return render_template("forms/reassign.html")
 
 @bp.route("/report", methods=("GET", "POST"))

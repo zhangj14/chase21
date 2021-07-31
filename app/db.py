@@ -9,7 +9,7 @@ def get_db():
     # if not, create new connection, add to g, then return
     if "db" not in g:
         g.db = mysql.connector.connect(**config.mysql)
-    return g.db, g.db.cursor()
+    return g.db, g.db.cursor(dictionary=True)
 
 def close_db(e=None):
     # remove database from current session

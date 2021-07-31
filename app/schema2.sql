@@ -15,7 +15,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- DATABASE nc_chase_3
 -- -----------------------------------------------------
 
-DROP DATABASE `nc_chase_3`;
+DROP DATABASE IF EXISTS `nc_chase_3`;
 CREATE DATABASE IF NOT EXISTS `nc_chase_3` DEFAULT CHARACTER SET utf8 ;
 USE `nc_chase_3`;
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `nc_chase_3`.`opt_out` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `email` VARCHAR(64) NOT NULL,
-  `reason` LONGTEXT NULL DEFAULT NULL,
+  `reasons` LONGTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
