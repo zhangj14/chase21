@@ -1,113 +1,413 @@
+/* Importing Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap');
+
+/* Setting zero margin and padding as global, to remove white border around site*/
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
 }
 
-body {
-  height: 100%;
+html {
+    /* font-size: 62.5%; */
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    padding: 1em;
+    padding-bottom: 10rem;
+}
+
+/* Styles for headers */
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 40px;
+    letter-spacing: -1px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    color: #4E1C80;
+}
+
+h2 {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 4em;
+    letter-spacing: -2px;
+    border-bottom: 2px solid black;
+    text-transform: uppercase;
+    color: #4E1C80;
+    text-indent: 5px;
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+    text-indent: 25px;
+    padding-top: 10px;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+    text-indent: 25px;
+    padding-top: 10px;
+}
+
+p {
+    font-family: "Century Gothic", CenturyGothic, sans-serif;
+    font-size: large;
+    padding-top: 10px;
+    padding-left: 1rem;
+}
+
+/* Setting wrapper style, which contains everything on the page */
+#wrapper {
+    height: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    min-height: 100vh;
 }
 
 header {
-  position: sticky;
-  top: 0;
-  background: linear-gradient(135deg, rgba(219,19,19,1) 13%, rgba(0,73,173,1) 93%);
+    border-bottom: 1px solid #e2e8f0;
 }
 
-header::after {
-  content: "";
-  clear: both;
-  display: table;
+/* Navbar styles, including mobile hamburger menu */
+nav {
+    background-size: cover;
+    background-color: #02D0AB;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
 }
 
-header img {
-  margin-left: 1%;
-  width: 9%;
-  float: left;
+.hamburger {
+    display:none;
 }
 
-header nav {
-  width: 90%;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #101010;
+}
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-item {
+    margin-left: 3.5rem;
+    margin-right: 2rem;
+    list-style: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.2rem;
+}
+.nav-a{
+    font-size: 1.6rem;
+    font-weight: 400;
+    opacity: 1;
+    color: #475569;
+    text-decoration: none;
+}
+.nav-a:hover{
+    color: #482ff7;
+    text-decoration: underline;
 }
 
-header nav ul {
-  list-style-type: none;
-  margin: 0;
-  overflow: hidden;
+.nav-logo {
+    width: auto;
+    max-height: 100px;
 }
 
-header nav ul li {
-  float: left;
+/* Showing the hamburger menu when screen size is smaller than 768px */
+@media only screen and (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 112px;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+        overflow-y: scroll;
+        /* -webkit-overflow-scrolling:touch; */
+        height: 400px;
+        max-height: 400px;
+        opacity: 0.97;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 1.5rem 0;
+        opacity: 1;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        -webkit-transform: translateY(8px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        -webkit-transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    h2 {
+        font-size: 3em;
+    }
 }
 
-nav ul li a {
-  display: block;
-  color: white;
-  opacity: 0.8;
-  text-align: center;
-  padding: 1vw;
-  font-size: 1.5vw;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-nav ul li a:hover, nav ul li a:active, nav ul li a:focus {
-  text-decoration: none;
-  color: white;
-  opacity: 1;
-}
-
-section {
-  border-style: solid;
-  border-color: #dddddd;
-  border-width: 3vw;
-  border-bottom: none;
-  margin-top: none;
-  padding: 3%;
-}
-
-section h1 {
-  color: black;
-}
-
+/* Footer CSS styling */
 footer {
-  position: relative;
-  bottom: 0%;
-  background: linear-gradient(135deg, rgba(238,235,9,1) 13%, rgba(0,173,22,1) 93%);
+    padding: 10px 0 10px 0;
+    background-color: #282d32;
+    color:#f0f9ff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 7rem;
+    /* height: 250px; */
 }
 
-footer::after {
-  content: "";
-  clear: both;
-  display: table;
+footer ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 0;
+    /* display: float; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-footer img {
-  margin-right: 1%;
-  width: 9%;
-  float: right;
+footer ul li {
+    padding: 0 30px;
 }
 
-footer nav {
-  width: 90%;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+footer ul a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.75;
+}
+footer ul a:hover {
+    opacity: 0.4;
+    text-decoration: underline;
+}
+footer .copyright {
+    /* margin-top: 15px; */
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 0;
+}
+footer .social {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 8px;
+}
+footer .social > a {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    display:inline-block;
+    text-align:center;
+    border-radius:50%;
+    border:1px solid #ccc;
+    margin:0 8px;
+    color:inherit;
+    opacity:0.9;
+}
+footer .social > a:hover {
+    opacity: 0.4;
 }
 
-footer nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding-right: 1vw;
-  overflow: hidden;
+/* CSS Styling for use when placing divs side by side, notably
+Scaffolding & Storage pages
+*/
+.flex-container {
+    width: 100%;
+    min-height: 300px;
+    margin: 0 auto;
+    display: flex;
 }
 
-footer nav ul li {
-  float: right;
+.flex-container .left {
+    padding: 10px;
+    flex: 1;
 }
+
+.flex-container .right {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+}
+
+.right img {
+    padding-top: 40px;
+    display: inline-block;
+    max-width: 45%;
+}
+.storage img {
+    max-width:65%;
+}
+
+/* Mobile screen fixes for the footer, and moves the right div BELOW the left div for readability. */
+@media only screen and (max-width: 768px) {
+    footer ul {
+        display: none;
+    }
+    footer {
+        padding: 5px 0 5px 0;
+    }
+    .flex-container {
+        display: block;
+    }
+    .right img{
+        max-width: 80%;
+        padding-top: 10px;
+    }
+}
+
+/* Setup styles for accordion on EVENTS page. */
+#accordion h3 {
+    background-color: #d3d3d3;
+    color: #444;
+    cursor: pointer;
+    padding: 20px 0;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+#accordion h3:hover {
+    background-color: #a1a1a1;
+}
+
+/* MEALS page "Hover" line */
+.hover-tooltip {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
+
+/* Aligning images */
+.image-section {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.empty {
+    text-align: center;
+    padding: 10px;
+    width: 800px;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+/* Placing images inline so as for ease of reading */
+figure {
+    position: relative;
+    display: inline-block;
+    margin: 1em 1em;
+    padding: 10px;
+}
+
+/* Styles for the captions of images. */
+figcaption {
+    display: block;
+    padding-top: 30px;
+    caption-side: top;
+    text-align: center;
+    position: relative;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+/* Transitions and Filters for MEALS page images. */
+.reveal {
+    width: 300px;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0px;
+    transition: transform .4s; /* This adds a smooth transition for when the image becomes larger */
+    filter: grayscale(70%); /* Filter for extra effect, disappears when hovered over. */
+}
+
+.reveal:hover {
+    filter: grayscale(0%);
+    transform: scale(1.2); /* This makes the image larger when hovered over*/
+}
+
+/* Redacted text effect on the storage page. */
+.redacted {
+    color: transparent;
+    text-shadow: 0 0 14px rgba(0, 0, 0, .4);
+} 
+
+/* Styling images on the EVENT page, within the accordion panels */
+.disco {
+    width: 300px;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0px;
+    padding-bottom: 10px;
+}
+
+.production {
+    width: 400px;
+    max-width: 80%;
+    /* padding-bottom: 10px; */
+    margin: 0 auto;
+}
+
+.CC0 {
+    padding-bottom: 10px;
+}
+
+/* Pretty-ing up the images on mobile devices */
+@media only screen and (max-width: 600px) {
+    .reveal { 
+        width: 90%;
+    }
+    .disco {
+        display: none;
+    }
+
+    /* Only show the first image of DISCO panel when on mobile */
+    .first {
+        display: inline-block !important;
+    }
+} 
