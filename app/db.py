@@ -3,13 +3,13 @@ from flask import g
 from flask.cli import with_appcontext
 import mysql.connector
 from . import config
-def get_db():
+def get_db(dict=True):
     # get database connection
     # if connection exists in g, return db stored in g
     # if not, create new connection, add to g, then return
     if "db" not in g:
         g.db = mysql.connector.connect(**config.mysql)
-    return g.db, g.db.cursor(dictionary=True)
+    return g.db, g.db.cursor(dictionary=dict)
 
 def close_db(e=None):
     # remove database from current session

@@ -1,57 +1,89 @@
 {% extends 'base.html' %}
 
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='current_game.css') }}">
-</head>
-
 {% block title %}
     Current Game
 {% endblock title %}
 
 {% block content %}
-<script>
-    function openCity(evt, cityName) {
-        // Declare all variables
-        var i, tabcontent, tablinks;
-      
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-      
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-      
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-</script>
-<div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-</div>
-  
-<!-- Tab content -->
-<div id="London" class="tabcontent">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
-</div>
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+    </div>
+    
+    <div id="London" class="tabcontent">
+        <table>
+            <tr>
+                yes
+            </tr>
+        </table>
+    </div>
+    
+    <div id="Paris" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p> 
+    </div>
+    
+    <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
 
-<div id="Paris" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
-</div>
+    <div class="selector-container">
+        <button class="selector" id="year9" onclick="showInfo()">Year 9</button>
+        <button class="selector" id="year10">Year 10</button>
+        <button class="selector" id="year11">Year 11</button>
+        <button class="selector" id="year12">Year 12</button>
+        <button class="selector" id="rimu">Rimu</button>
+        <button class="selector" id="matai">Matai</button>
+        <button class="selector" id="kowhai">Kowhai</button>
+        <button class="selector" id="totara">Totara</button>
+        <button class="selector" id="dead">In game</button>
+        <button class="selector" id="alive">Out</button>
+    </div>
 
-<div id="Tokyo" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
-</div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+        var tf = new TableFilter(document.querySelector('table.all_info_table'), {
+            base_path: '../../node_modules/tablefilter',
+            alternate_rows = true
+        });
+        tf.init();
+    </script>
+
+    <table>
+        <tr>
+            {% for header in headers %}
+                <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <script>
+        var tf = new TableFilter('')
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
 {% endblock content %}

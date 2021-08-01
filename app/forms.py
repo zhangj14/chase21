@@ -31,7 +31,7 @@ def caught():
 
         if not db_runner_id:
             message = "Invalid chaser ID."
-        elif db_runner_id[0] != runner_id:
+        elif db_runner_id['runner_id'] != runner_id:
             message = "Please double check your Chaser ID and Runner ID."
         if message is None:
             valid = True
