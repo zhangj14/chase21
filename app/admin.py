@@ -14,7 +14,7 @@ class Admin:
 
     # Establish connection.
     cnx = mysql.connector.connect(**db_config)
-    cnx.database = "nc_chase"
+    cnx.database = "nc_chase_3"
 
     # Obtain cursor to execute queries.
     cursor = cnx.cursor()
@@ -214,4 +214,3 @@ def assign_id_command():
 def init_app(app):
     app.cli.add_command(assign_runner_command)
     app.cli.add_command(assign_id_command)
-    app.cli.add_command(reassign_command)
