@@ -9,35 +9,6 @@ from datetime import datetime
 
 from .config import mysql as db_config
 
-class LinkedList:
-    """Linked list class for fast insertion and poping. Used for assign runners"""
-    class Node:
-        def __init__(self, prev = None, person = None, next = None) -> None:
-            self.prev = prev
-            self.person = person
-            self.next = next
-
-    first = Node()
-    
-    def is_empty(self) -> bool:
-        return self.first == None
-
-    def push(self, person) -> None:
-        if person == None:
-            raise TypeError
-        old_first = self.first
-        self.first.person = person
-        self.first.next = old_first
-        self.first.pre
-
-class Person:
-    """Person class to include individual player's information. 
-       Instead of treating them as nested lists"""
-    def __init__(self, **kwargs) -> None:
-        self.id = kwargs['id']
-        self.chaser_count = kwargs['chaser_count']
-        self.house = kwargs['house']
-
 class Admin:
     """Admin object including functions such as assign chaser IDs, assign runners"""
 
@@ -240,11 +211,6 @@ def assign_id_command():
     Admin().assign_ID()
     click.echo("Assigned chaser IDs.")
 
-@click.command("reassign")
-@with_appcontext
-def reassign_command():
-    Admin().assign_ID()
-    click.echo("Reassigned runner IDs.")
 def init_app(app):
     app.cli.add_command(assign_runner_command)
     app.cli.add_command(assign_id_command)
