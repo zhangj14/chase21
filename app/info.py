@@ -1,4 +1,4 @@
-from .db import get_db
+import re
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -17,8 +17,4 @@ def contact():
 
 @bp.route("/current_game/")
 def current_game():
-    db, cursor = get_db(dict=False)
-    cursor.execute("SELECT CONCAT(fname, ' ', lname), form, CONCAT('Year ', year_level), house, caught_count, game_status FROM all_players")
-    headers = ("Name", "Form class", "Year level", "House", "Score", "Game status")
-    data = cursor.fetchall()
-    return render_template('info/scores.html', headers=headers, data=data)
+    return render_template('info/scores.html')

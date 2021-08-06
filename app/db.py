@@ -3,32 +3,30 @@ from flask import g
 from flask.cli import with_appcontext
 import mysql.connector
 from . import config
-def get_db(dict=True):
+def get_db():
     # get database connection
     # if connection exists in g, return db stored in g
     # if not, create new connection, add to g, then return
-    # if "db" not in g:
-    db = mysql.connector.connect(**config.mysql)
-    cursor = db.cursor(dict)
-    return db, cursor
+    if "db" not in g:
+        g.db = mysql.connector.connect(**config.mysql)
+    return g.db, g.db.cursor()
 
 def close_db(e=None):
     # remove database from current session
     # close cursor and connection
-    db = g.pop("db", None)
-    if db:
-        db.close()
+    cnx = g.pop("db", None)
+    if cnx:
+        cnx.cursor().close()
+        cnx.close()
 
 def init_db():
-    # get db connection
-    db, cursor = get_db()
+    db, cursor = get_db() # get db connection, cursor
     # with clause is used for error handling and close the file properly
-    with open("app/schema.sql") as f:
+    with open("app/schema2.sql") as f:
         # mulit used to return an iterator
         result_iterator = cursor.execute(f.read(), multi=True)
         for r in result_iterator:
-            # Will print out a short representation of the query
-            print("Running query: ", r)  
+            print("Running query: ", r)  # Will print out a short representation of the query
             print(f"Affected {r.rowcount} rows" )
 
 # add command to cmd
