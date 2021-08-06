@@ -152,52 +152,6 @@ class Admin:
                                     AND ref.chaser_id = '{request[3]}' \
                                     LIMIT 1")
             self.cnx.commit()
-
-        def reassign():
-
-            requests = get_all_requests()
-            # Handle different year levels.
-            for year_level in range(9, 13):
-                # if no request from a year level, skip
-                if not(requests['year{}'.format(year_level)]):
-                    continue
-                update_away_people(requests['year{}'.format(year_level)], year_level)
-                # select alive people in a year level.
-                self.cursor.execute(f"SELECT game_id, chaser_count, house \
-                                    FROM year{year_level} WHERE game_status = 0")
-                all_alive = [list(i) for i in self.cursor.fetchall()]
-                # Randomize then sort by number of chasers 
-                # to make game as fair as possible
-                shuffle(all_alive)
-                all_alive.sort(key = itemgetter(1))
-                j = 0
-
-                for current in requests['year{}'.format(year_level)]:
-                    # find person who's not in the chaser's house
-                    try:
-                        while all_alive[j][2] == current[5]:
-                            j += 1
-                    except IndexError:
-                        # reset runner pool
-                        shuffle(all_alive)
-                        all_alive.sort(key = itemgetter(1))
-                        j = 0
-
-                    # update database
-                    self.cursor.execute(f"UPDATE year{year_level} \
-                                        SET runner_id = '{all_alive[j][0]}' \
-                                        WHERE game_id = {current[3]}")
-                    self.cursor.execute(f"UPDATE year{year_level} \
-                                        SET chaser_count = chaser_count + 1 \
-                                        WHERE game_id = '{all_alive[j][0]}'")
-                    # increase the chaser count of the runner
-                    all_alive[j][1] += 1
-                    # move the pointer
-                    j += 1
-            self.cursor.execute()
-            self.cnx.commit()
-        reassign()
-
                 
 @click.command("assign-runner")
 @with_appcontext
