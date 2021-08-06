@@ -9,7 +9,7 @@ def get_db(dict=True):
     # if not, create new connection, add to g, then return
     # if "db" not in g:
     db = mysql.connector.connect(**config.mysql)
-    cursor = db.cursor(dict)
+    cursor = db.cursor(dictionary=dict)
     return db, cursor
 
 def close_db(e=None):
