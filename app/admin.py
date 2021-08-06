@@ -33,29 +33,20 @@ class Admin:
             id_list += new_letter_list
         shuffle(id_list)
 
-        # Sql statements templates.
-        select_alive = "SELECT id FROM year{} WHERE game_status = 0"
-        update = "UPDATE year{} SET game_id = %s, chaser_count = %s WHERE id = %s"
+        # select alive people's ids
+        self.cursor.execute("SELECT id FROM all_players WHERE game_status = 'alive'")
+        alive_id = self.cursor.fetchall()
 
-        # Loop through different year levels (9 - 12).
-        for year_level in range(9, 13):
+        row_count = 0
+        for i in range(len(alive_id)):
+            # Update their chaser ids, remove used ids.
+            self.cursor.execute(f"UPDATE all_players \
+                                SET chaser_id = '{id_list.pop()}', \
+                                    chaser_count = 0 \
+                                WHERE id = {alive_id[i][0]}")
+            row_count += 1
 
-            print("Assigning chaser IDs to year{}...".format(year_level))
-
-            # Obtain all alive players' id.
-            self.cursor.execute(select_alive.format(year_level))
-            alive_id = self.cursor.fetchall()
-
-            row_count = 0
-            for i in range(len(alive_id)):
-                # Update their chaser ids, remove used ids.
-                self.cursor.execute(update.format(year_level), 
-                                    (id_list.pop(), 0, alive_id[i][0]))
-                row_count += 1
-
-
-            print("{} row(s) affected.".format(row_count))
-
+        print("{} row(s) affected.".format(row_count))
         self.cnx.commit()
 
     def assign_runner(self):
@@ -66,8 +57,9 @@ class Admin:
 
             # Fetch all alive players within a year group as a pool.
             print("\nSelecting alive players year{}.".format(year_level))
-            self.cursor.execute(f"SELECT game_id, chaser_count, house \
-                                FROM year{year_level} WHERE game_status = 0")
+            self.cursor.execute(f"SELECT chaser_id, chaser_count, house \
+                                FROM all_players WHERE game_status = 'alive' \
+                                AND year_level = {year_level}")
             all_alive = [list(i) for i in self.cursor.fetchall()]
             print("{} row(s) selected.".format(len(all_alive)))
             # Randomize first, then sort by number of chasers.
@@ -75,8 +67,9 @@ class Admin:
             all_alive.sort(key = itemgetter(1))
 
             # Fetch house names, sort by number of players alive.
-            self.cursor.execute(f"SELECT house, COUNT(house) FROM year{year_level} \
-                                WHERE game_status = 0 GROUP BY house \
+            self.cursor.execute(f"SELECT house, COUNT(house) FROM all_players \
+                                WHERE game_status = 'alive' AND year_level = {year_level} \
+                                GROUP BY house \
                                 ORDER BY COUNT(house) DESC")
             houses = {name[0]: name[1] for name in self.cursor.fetchall()}
             for house in houses.keys():
@@ -89,8 +82,10 @@ class Admin:
 
                 # Select alive people in a house.
                 print("Assigning alive year{} in {}...".format(year_level, house))
-                self.cursor.execute(f"SELECT id FROM year{year_level} \
-                                    WHERE game_status = 0 AND house = '{house}'")
+                self.cursor.execute(f"SELECT id FROM all_players \
+                                    WHERE game_status = 'alive' \
+                                    AND house = '{house}' \
+                                    AND year_level = {year_level} ")
                 house_alive = self.cursor.fetchall()
 
                 for current in house_alive:
@@ -104,54 +99,18 @@ class Admin:
                         all_alive.sort(key = itemgetter(1))
                         j = 0
                     # Update database.
-                    self.cursor.execute(f"UPDATE year{year_level} \
+                    self.cursor.execute(f"UPDATE all_players \
                                         SET runner_id = '{all_alive[j][0]}' \
                                         WHERE id = {current[0]}")
-                    self.cursor.execute(f"UPDATE year{year_level} \
+                    self.cursor.execute(f"UPDATE all_players \
                                         SET chaser_count = chaser_count + 1 \
-                                        WHERE game_id = '{all_alive[j][0]}'")
+                                        WHERE chaser_id = '{all_alive[j][0]}'")
                     row_count += 1
                     # Increase the chaser count of the runner.
                     all_alive[j][1] += 1
                     # Move the pointer.
                     j += 1
         self.cnx.commit()
-    
-    def reassign(self):
-        def get_all_requests():
-            unhandled = self.cursor.execute("SELECT * FROM reassign WHERE handled = 0")
-            year9 = []
-            year10 = []
-            year11 = []
-            year12 = []
-            for request in unhandled:
-                # Validate date, handle today's requests only.
-                if datetime(request[1]).day == datetime.now().day:
-                    self.cursor.execute(f"SELECT house FROM year{request[2]} \
-                                        WHERE game_id = '{request[3]}' \
-                                        AND game_status = 0 LIMIT 1")
-                    request.append(self.cursor.fetchone()[0])
-                    if request[2] == 9:
-                        year9.append(request)
-                    elif request[2] == 10:
-                        year10.append(request)
-                    elif request[2] == 11:
-                        year11.append(request)
-                    elif request[2] == 12:
-                        year12.append(request)
-            return {"year9": year9, "year10": year10, "year11": year11, "year12": year12}
-
-        def update_away_people(year_level_list, year_level):
-            """Mark all people who are reported away of a year level."""
-            for request in year_level_list:
-                self.cursor.execute(f"UPDATE year{year_level}, \
-                                    (SELECT runner_id, chaser_id \
-                                    FROM year{year_level}) AS ref \
-                                    SET year{year_level}.game_status = 2 \
-                                    WHERE year{year_level}.game_id = ref.runner_id \
-                                    AND ref.chaser_id = '{request[3]}' \
-                                    LIMIT 1")
-            self.cnx.commit()
                 
 @click.command("assign-runner")
 @with_appcontext
