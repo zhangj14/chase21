@@ -111,7 +111,8 @@ class Admin:
                     # Move the pointer.
                     j += 1
         self.cnx.commit()
-                
+
+# register commands to the app
 @click.command("assign-runner")
 @with_appcontext
 def assign_runner_command():
