@@ -1,1 +1,76 @@
 {% extends 'base.html' %}
+
+{% block title %}
+    Current Game
+{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='scores.css') }}">
+    <script src="{{ url_for('static', filename='scores.js') }}"></script>
+{% endblock links %}
+
+{% block content %}
+    <script>
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+          
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabscontent");
+            for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+            }
+          
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+          
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // document.getElementById("defaultOpen").click();
+    </script>
+    <div class="tab">
+        <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'All_Info')">All players</button>
+        <button class="tablinks" onclick="openTab(event, 'House')">Houses</button>
+        <button class="tablinks" onclick="openTab(event, 'Form_Class')">Form classes</button>
+    </div>
+    <div id="All_Info" class="tabscontent">
+        <div class="filters">
+            <button id="year9" class="inactive" onclick="filter('year_level', 'Year 9')">Year 9</button>
+            <button id="year10" class="inactive" onclick="filter('year_level', 'Year 10')">Year 10</button>
+            <button id="year11" class="inactive" onclick="filter('year_level', 'Year 11')">Year 11</button>
+            <button id="year12" class="inactive" onclick="filter('year_level', 'Year 12')">Year 12</button>
+            <button id="rimu" class="inactive" onclick="filter('house', 'rimu')">Rimu</button>
+            <button id="matai" class="inactive" onclick="filter('house', 'matai')">Matai</button>
+            <button id="kowhai" class="inactive" onclick="filter('house', 'kowhai')">Kowhai</button>
+            <button id="totara" class="inactive" onclick="filter('house', 'totara')">Totara</button>
+            <button id="absent" class="inactive" onclick="filter('game_status', 'absent')">Absent</button>
+            <button id="dead" class="inactive" onclick="filter('game_status', 'dead')">Dead</button>
+            <button id="alive" class="inactive" onclick="filter('game_status', 'alive')">Alive</button>
+            <button id="clear" onclick="clearFilter()">Clear filter</button>
+            <input type="text" id="search" onkeyup="search(event)" placeholder="e.g.'Bob Doe', '9JI'">
+        </div>
+        <table id="all_info">
+            <!-- create headers -->
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            <!-- fetch and display data from flask -->
+            </tr>
+            {% for row in data %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div id="House" class="tabscontent"></div>
+    <div id="Form_Class" class="tabscontent"></div>
+{% endblock content %}

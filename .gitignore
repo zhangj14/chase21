@@ -1,25 +1,8 @@
-# Credentials
-CLIENT_SECRET.*
-credentials.*
-service_account.*
 app/config.py
-
-# Python
-__pycache__
-.mypy_cache
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# vscode
-.vscode
-
-# Jetbrains IDEs; PyCharm/IntelliJ
-.idea
-
+venv
+app/templates/tablefilter
+app/__pycache__
+app/__pycache__/config.cpython-39.pyc
+app/static/scores.js
+*.pyc
+app/__pycache__/db.cpython-39.pyc
