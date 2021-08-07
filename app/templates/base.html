@@ -33,16 +33,15 @@
         </nav>
     </header>
     {% block content %}
-    <section>
-        {% block section %}
-        {% endblock section %}
-        {% block message %}
-            {% for message in get_flashed_messages() %}
-                {{ message }}
-            {% endfor %}
-        {% endblock message %}
-    </section>
-        
+        <section>
+            {% block section %}
+            {% endblock section %}
+            {% block message %}
+                {% for message in get_flashed_messages() %}
+                    {{ message }}
+                {% endfor %}
+            {% endblock message %}
+        </section>
     {% endblock content %}
     <footer>
         <nav>
