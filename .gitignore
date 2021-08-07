@@ -1,3 +1,25 @@
+# Credentials
+CLIENT_SECRET.*
+credentials.*
+service_account.*
 app/config.py
-venv
-app/__pycache__
+
+# Python
+__pycache__
+.mypy_cache
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# vscode
+.vscode
+
+# Jetbrains IDEs; PyCharm/IntelliJ
+.idea
+
