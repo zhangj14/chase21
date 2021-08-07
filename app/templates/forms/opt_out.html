@@ -4,14 +4,12 @@
     opt_out form
 {% endblock title %}
 
-{% block content %}
-    <section>
-        <form action="" method="post">
+{% block section %}
+        <form method="post">
             <label for="chaser_id">Your email</label>
             <input type="text" name="email" id="email" required>
             <label for="runner_id">Reasons</label>
             <input type="text" name="reasons" id="reasons">
             <input type="submit" value="submit">
         </form>
-    </section>
-{% endblock content %}
+{% endblock section %}
