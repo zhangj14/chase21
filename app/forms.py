@@ -117,4 +117,23 @@ def reassign():
 
 @bp.route("/report", methods=["GET", "POST"])
 def report():
+    if request.method == "POST":
+        # get form values
+        email = request.form['email']
+        report = request.form['report']
+        # get db connection
+        cnx, cursor = get_db()
+        message = None
+        # exceptions
+        if not email:
+            message = "Your email adress is required."
+        else:
+            cursor.execute(f"SELECT game_status FROM all_players WHERE email = '{email}'")
+            player = cursor.fetchone()
+            if not player:
+                message = "Invalid email."
+        cursor.execute("INSERT INTO report (email, message) values (%s, %s)", (email, report))
+        message = "Thank you. We will get back to you."
+        cnx.commit()
+        flash(message)
     return render_template("forms/report.html")
