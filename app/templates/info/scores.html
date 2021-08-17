@@ -56,19 +56,24 @@
         </div>
         <table id="all_info">
             <!-- create headers -->
-            <tr>
+            <thead>
+                <tr>
                 {% for header in headers %}
-                    <th>{{ header }}</th>
+                    <th onclick="headerClick(this)">{{ header }}</th>
                 {% endfor %}
-            <!-- fetch and display data from flask -->
-            </tr>
-            {% for row in data %}
+                </tr>
+            </thead>
+            
+            <tbody id="all_info_body">
+                <!-- fetch and display data from flask -->
+                {% for row in data %}
                 <tr>
                     {% for cell in row %}
                         <td>{{ cell }}</td>
                     {% endfor %}
                 </tr>
-            {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     </div>
     <div id="House" class="tabscontent"></div>

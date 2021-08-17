@@ -10,6 +10,7 @@ function search(event) {
         count = 0;
         for (i = 0; i < tr.length; i++) {
             // take the form class and name value from the cell
+            console.log(tr[i])
             _nameTag = tr[i].getElementsByTagName("td")[0];
             _formTag = tr[i].getElementsByTagName("td")[1];
             if (_nameTag && _formTag) {
@@ -85,4 +86,67 @@ function clearFilter() {
         tr[i].style.display = "";
         tr[i].style.backgroundColor = "";
     }
+}
+
+function headerClick(header) {
+    // declare variables
+    var table, rows, tbody, index, allData, newTable;
+    // different index for different columns
+    switch (header.innerText) {
+        case "First name":
+            index = 0;
+            break;
+        case "Last name":
+            index = 1;
+            break;
+        case "Form class":
+            index = 2;
+            break;
+        case "Year level":
+            index = 3;
+            break;
+        case "House":
+            index = 4;
+            break;
+        case "Score":
+            index = 5;
+            break;
+        case "Game status":
+            index = 6;
+            break;
+        default:
+            break;
+    }
+    // get all data rows in the table
+    // header -> tr -> thead -> table
+    table = header.parentNode.parentNode.parentNode;
+    tbody = table.getElementsByTagName("tbody")[0];
+    rows = tbody.children;
+    allData = [];
+    for (let i = 0; i < rows.length; i++) {
+        allData.push([]);
+        const row = rows[i].children;
+        for (let j = 0; j < row.length; j++) {
+            const cell = row[j];
+            allData[i].push(cell.innerText);
+        }
+    }
+    // compare function. utf-16 order if text. numeric order if int. 
+    function compare(a, b) {
+        if (isNaN(a[index])) {
+            return a[index].localeCompare(b[index]);
+        } else {
+            return a[index] - b[index];
+        }
+    }
+    allData.sort(compare);
+    newTable = "";
+    for (const row of allData) {
+        newTable += "<tr>";
+        for (const cell of row) {
+            newTable += "<td>" + cell + "</td>";
+        }
+        newTable += "</tr>";
+    }
+    table.getElementsByTagName("tbody")[0].innerHTML = newTable;
 }
