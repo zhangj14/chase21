@@ -38,15 +38,15 @@ function search(event) {
 function getIndex(col_name) {
     // return index base on column name
     switch(col_name) {
-        case 'year_level': return 2;
-        case 'house': return 3;
-        case 'game_status': return 5;
+        case 'year_level': return 3;
+        case 'house': return 4;
+        case 'game_status': return 6;
     }
 }
 
 function filter(category, filter) {
     // get all rows and filter value
-    table = document.getElementById("all_info");
+    table = document.getElementById("all_info").getElementsByTagName("tbody")[0];
     tr = table.getElementsByTagName("tr");
     filter = filter.toLowerCase().trim();
     count = 0;
@@ -79,7 +79,7 @@ function filter(category, filter) {
 
 function clearFilter() {
     // get html object
-    table = document.getElementById('all_info');
+    table = document.getElementById('all_info').getElementsByTagName("tbody")[0];
     tr = table.getElementsByTagName("tr");
     // change all rows to display, background color according to css
     for (i = 0; i < tr.length; i++) {
@@ -90,7 +90,7 @@ function clearFilter() {
 
 function headerClick(header) {
     // declare variables
-    var table, rows, tbody, index, allData, newTable;
+    var table, rows, index, allData, newTable;
     // different index for different columns
     switch (header.innerText) {
         case "First name":
@@ -120,15 +120,16 @@ function headerClick(header) {
     // get all data rows in the table
     // header -> tr -> thead -> table
     table = header.parentNode.parentNode.parentNode;
-    tbody = table.getElementsByTagName("tbody")[0];
-    rows = tbody.children;
+    rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
     allData = [];
     for (let i = 0; i < rows.length; i++) {
-        allData.push([]);
-        const row = rows[i].children;
-        for (let j = 0; j < row.length; j++) {
-            const cell = row[j];
-            allData[i].push(cell.innerText);
+        if (rows[i].style.display != 'none') {
+            const row = rows[i].getElementsByTagName("td");
+            let list = [];
+            for (let j = 0; j < row.length; j++) {
+                list.push(row[j].innerText);
+            }
+            allData.push(list);
         }
     }
     // compare function. utf-16 order if text. numeric order if int. 
@@ -149,4 +150,25 @@ function headerClick(header) {
         newTable += "</tr>";
     }
     table.getElementsByTagName("tbody")[0].innerHTML = newTable;
+}
+
+function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabscontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
