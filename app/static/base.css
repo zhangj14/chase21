@@ -68,11 +68,13 @@ section {
   border-width: 3vw;
   border-bottom: none;
   margin-top: none;
-  padding: 3%;
+  padding: 2%;
 }
 
 section h1 {
   color: black;
+  font-family: "Calibri";
+  font-size: 40px;
 }
 
 footer {
@@ -111,4 +113,21 @@ footer nav ul {
 
 footer nav ul li {
   float: right;
+}
+
+p, ul li {
+  font-family: "Calibri";
+  font-size: 20px;
+  margin: 2px;
+}
+
+/* ul li {
+  font-family: "Calibri";
+  font-size: 20px;
+  margin: 2px;
+} */
+
+h2 {
+  font-family: "Calibri";
+  font-size: 30px;
 }
