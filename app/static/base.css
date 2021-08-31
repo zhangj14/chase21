@@ -115,10 +115,23 @@ footer nav ul li {
   float: right;
 }
 
-p, ul li {
+a, p, ul li {
   font-family: "Calibri";
   font-size: 20px;
   margin: 2px;
+}
+
+label {
+  font-family: "Calibri";
+  font-size: 35px;
+  font-weight: bold;
+  margin: 2px;
+}
+
+input {
+  margin-top: 5px;
+  height: 35px;
+  border-radius: 5px;
 }
 
 /* ul li {

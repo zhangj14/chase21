@@ -19,15 +19,19 @@
 {% block content %}
     <article>
         <section>
+            <h2>Catch your runner? Enter their player ID here.</h2> 
             <a href="{{ url_for('forms.caught') }}">Caught form</a>
         </section>
         <section>
+            <h2>Runner not at school? Request a new one here.</h2>
             <a href="{{ url_for('forms.reassign') }}">Reassign form</a>
         </section>
         <section>
+            <h2>Don't want to play? We're sad to see you go. Opt out of Chase21 here.</h2>
             <a href="{{ url_for('forms.opt_out') }}">Opt-out form</a>
         </section>
         <section>
+            <h2>Suspect foul play? Report another player here.</h2>
             <a href="{{ url_for('forms.report') }}">Report form</a>
         </section>
     </article>
