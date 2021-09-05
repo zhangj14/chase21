@@ -1,15 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    opt_out form
+    Report 
 {% endblock title %}
 
 {% block section %}
-        <form method="post">
-            <label for="chaser_id">Your email</label>
-            <input type="text" name="email" id="email" required>
-            <label for="runner_id">Message</label>
-            <input type="text" name="report" id="report">
-            <input type="submit" value="submit">
+        
+        <form action="" method="post">
+            <label for="chaser_id">Your Email</label>
+            <br>
+            <input type="email" name="email" id="email" placeholder="doej@newlands.school.nz" required>
+            <br>
+            <label for="runner_id">Report Message - Please include:</label>
+            <ol>
+                <li>Who's involved</li>
+                <li>What happened</li>
+                <li>Any other relevant details</li>
+            </ol>
+            <br>
+            <textarea type="text" name="report" id="report" rows="6" cols="50" maxlength="300" required></textarea>
+            <br>
+            <p>Chase21 works on a high trust model. Reports found to be false or fabricated <b>will</b> be followed up on and may result in removal from the game and/or other measures.</p>
+            <input class="sub_button" type="submit" value="Submit">
         </form>
+        
 {% endblock section %}

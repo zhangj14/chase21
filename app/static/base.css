@@ -121,6 +121,13 @@ a, p, ul li {
   margin: 2px;
 }
 
+ol li {
+  font-family: "Calibri";
+  color: rgb(68,69,71);
+  font-size: 20px;
+  /* margin: 2px; */
+}
+
 label {
   font-family: "Calibri";
   font-size: 35px;
@@ -128,19 +135,36 @@ label {
   margin: 2px;
 }
 
-input {
-  margin-top: 5px;
+input{
+  /* margin-top: 2px; */
+  font-size: 20px;
   height: 35px;
+  width: 25%;
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-/* ul li {
-  font-family: "Calibri";
-  font-size: 20px;
-  margin: 2px;
-} */
+textarea {
+  font-size: 20px; 
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+}
 
 h2 {
   font-family: "Calibri";
   font-size: 30px;
+}
+
+.sub_button {
+  margin-top: 5px;
+  font-family: "Calibri";
+  font-size: 20px;
+  font-weight: bold;
+  width:auto;
+  /* margin: 2px; */
+}
+
+#report_box{
+  width: 50%;
+  height: 150px
 }
