@@ -34,10 +34,14 @@ def create_app(test_config=None):
     from . import admin
     admin.init_app(app)
 
+    from . import emailing
+    emailing.init_app(app)
+
     from . import info
     app.register_blueprint(info.bp)
 
     from . import forms
     app.register_blueprint(forms.bp)
-    
+
+   
     return app

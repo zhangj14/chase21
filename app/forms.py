@@ -1,3 +1,4 @@
+from app.emailing import email_caught
 from flask import (
     Blueprint, flash, g, redirect, render_template, url_for, request
 )
@@ -37,7 +38,11 @@ def caught():
         if message is None:
             cursor.execute(f"UPDATE all_players SET game_status = 'dead' WHERE chaser_id = '{runner_id}'")
             cursor.execute(f"UPDATE all_players SET caught_count = caught_count + 1 WHERE chaser_id = '{chaser_id}'")
-            message = "Congratulations!"
+            try:
+                email_caught(runner_id, chaser_id)
+                message = "Congratulations!"
+            except:
+                message = "Sorry, something is wrong. Please Contact the Chase team."
             valid = True
         cursor.execute("INSERT INTO caught (chaser_id, runner_id, valid) values (%s, %s, %s)", (chaser_id, runner_id, valid))
         cnx.commit()

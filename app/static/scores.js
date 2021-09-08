@@ -1,39 +1,38 @@
 function search(event) {
-    // if (event.keyCode == 13) {
+    if (event.code === "Enter") {
         // declare variables
-        var input, filter, tr, td, txtValue, table;
+        var filter, rows;
         // get input and table rows
-        input = document.getElementById('search');
-        filter = input.value.toLowerCase().trim();
-        table = document.getElementById("all_info");
-        tr = table.getElementsByTagName("tr");
+        filter = document.getElementById('search').value.toLowerCase().trim();
+        rows = document.getElementById("all_info").getElementsByTagName("tr");
         count = 0;
-        for (i = 0; i < tr.length; i++) {
+        for (i = 0; i < rows.length; i++) {
             // take the form class and name value from the cell
-            console.log(tr[i])
-            _nameTag = tr[i].getElementsByTagName("td")[0];
-            _formTag = tr[i].getElementsByTagName("td")[1];
-            if (_nameTag && _formTag) {
-                _name = _nameTag.textContent || _nameTag.innerText;
-                _form = _formTag.textContent || _formTag.innerText;
+            _fnameTag = rows[i].getElementsByTagName("td")[0];
+            _lnameTag = rows[i].getElementsByTagName("td")[1];
+            _formTag = rows[i].getElementsByTagName("td")[2];
+            if (_fnameTag && _formTag && _lnameTag) {
+                _fname = _fnameTag.innerText.toLowerCase();
+                _lname = _lnameTag.innerText.toLowerCase();
+                _form = _formTag.innerText.toLowerCase();
                 // if input in those cells, display = block, else hide. 
-                if (_name.toLowerCase().indexOf(filter) > -1 || _form.toLowerCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
+                if (_fname.indexOf(filter) > -1 || _form.indexOf(filter) > -1 || _lname.indexOf(filter) > -1) {
+                    rows[i].style.display = "";
                     count++;
                     // every second row
                     if (count % 2 == 0) {
-                        tr[i].style.backgroundColor = "#fdfdfd";
+                        rows[i].style.backgroundColor = "#fdfdfd";
                     }
                     else {
-                        tr[i].style.backgroundColor = "#f0f0f0";
+                        rows[i].style.backgroundColor = "#f0f0f0";
                     }
                 } else {
-                    tr[i].style.display = "none";
+                    rows[i].style.display = "none";
                 }
             }
         } 
     }
-// }
+}
 
 function getIndex(col_name) {
     // return index base on column name

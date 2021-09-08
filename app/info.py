@@ -1,7 +1,8 @@
-from .db import get_db
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
+
+from .db import get_db
 
 bp = Blueprint('info', __name__)
 
@@ -19,6 +20,7 @@ def contact():
 def current_game():
     db, cursor = get_db(dict=False)
     cursor.execute("SELECT fname, lname, form, CONCAT('Year ', year_level), house, caught_count, game_status FROM all_players WHERE game_status <> 'opt_out'")
-    headers = ("First name","Last name", "Form class", "Year level", "House", "Score", "Game status")
+    headers = [("First name","Last name", "Form class", "Year level", "House", "Score", "Game status"), ("House")]
     data = cursor.fetchall()
-    return render_template('info/scores.html', headers=headers, data=data)
+    return render_template('info/scores.html', 
+                            all_info_headers=headers[0], data=data)
