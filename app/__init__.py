@@ -24,20 +24,25 @@ def create_app(test_config=None):
     except:
         pass
 
+    # Test page.
     @app.route("/")
     def index():
         return redirect(url_for("info.index"))
 
+    # Import modules, register them with the app.
     from . import db
     db.init_app(app)
 
     from . import admin
     admin.init_app(app)
 
+    from . import emailing
+    emailing.init_app(app)
+
     from . import info
     app.register_blueprint(info.bp)
 
     from . import forms
     app.register_blueprint(forms.bp)
-    
+
     return app
