@@ -27,7 +27,7 @@ def create_app(test_config=None):
     # Test page.
     @app.route("/")
     def index():
-        return "<h1>hello<h1>"
+        return redirect(url_for("info.index"))
 
     # Import modules, register them with the app.
     from . import db
