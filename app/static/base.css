@@ -68,11 +68,13 @@ section {
   border-width: 3vw;
   border-bottom: none;
   margin-top: none;
-  padding: 3%;
+  padding: 2%;
 }
 
 section h1 {
   color: black;
+  font-family: "Calibri";
+  font-size: 40px;
 }
 
 footer {
@@ -111,4 +113,58 @@ footer nav ul {
 
 footer nav ul li {
   float: right;
+}
+
+a, p, ul li {
+  font-family: "Calibri";
+  font-size: 20px;
+  margin: 2px;
+}
+
+ol li {
+  font-family: "Calibri";
+  color: rgb(68,69,71);
+  font-size: 20px;
+  /* margin: 2px; */
+}
+
+label {
+  font-family: "Calibri";
+  font-size: 35px;
+  font-weight: bold;
+  margin: 2px;
+}
+
+input{
+  /* margin-top: 2px; */
+  font-size: 20px;
+  height: 35px;
+  width: 25%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  font-size: 20px; 
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+}
+
+h2 {
+  font-family: "Calibri";
+  font-size: 30px;
+}
+
+.sub_button {
+  margin-top: 5px;
+  font-family: "Calibri";
+  font-size: 20px;
+  font-weight: bold;
+  width:auto;
+  /* margin: 2px; */
+}
+
+#report_box{
+  width: 50%;
+  height: 150px
 }
