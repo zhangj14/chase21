@@ -1,1 +1,1 @@
-web: gunicorn chase_2.wsgi
+web: gunicorn app.wsgi
