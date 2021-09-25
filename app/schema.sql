@@ -8,21 +8,21 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- DATABASE mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- DATABASE nc_chase_3
+-- DATABASE nc_chase
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- DATABASE nc_chase_3
+-- DATABASE nc_chase
 -- -----------------------------------------------------
 
-DROP DATABASE `nc_chase_3`;
-CREATE DATABASE IF NOT EXISTS `nc_chase_3` DEFAULT CHARACTER SET utf8 ;
-USE `nc_chase_3`;
+DROP DATABASE IF EXISTS `nc_chase` ;
+CREATE DATABASE IF NOT EXISTS `nc_chase` DEFAULT CHARACTER SET utf8 ;
+USE `nc_chase`;
 
 -- -----------------------------------------------------
--- Table `nc_chase_3`.`all_players`
+-- Table `nc_chase`.`all_players`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nc_chase_3`.`all_players` (
+CREATE TABLE IF NOT EXISTS `nc_chase`.`all_players` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fname` VARCHAR(45) NULL DEFAULT NULL,
   `lname` VARCHAR(45) NULL DEFAULT NULL,
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `nc_chase_3`.`all_players` (
   `reassign_count` INT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `chaser_id_UNIQUE` (`chaser_id` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -48,14 +49,15 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
 (fname, lname, email, form, house);
 
+SET SQL_SAFE_UPDATES = 0;
 DELETE FROM all_players WHERE house NOT IN ("Matai", "Rimu", "Totara", "Kowhai");
 DELETE FROM all_players WHERE year_level = 13;
-
+SET SQL_SAFE_UPDATES = 1;
 
 -- -----------------------------------------------------
--- Table `nc_chase_3`.`caught`
+-- Table `nc_chase`.`caught`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nc_chase_3`.`caught` (
+CREATE TABLE IF NOT EXISTS `nc_chase`.`caught` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `chaser_id` VARCHAR(4) NOT NULL,
@@ -67,9 +69,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nc_chase_3`.`opt_out`
+-- Table `nc_chase`.`opt_out`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nc_chase_3`.`opt_out` (
+CREATE TABLE IF NOT EXISTS `nc_chase`.`opt_out` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `email` VARCHAR(64) NOT NULL,
@@ -81,9 +83,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nc_chase_3`.`reassign`
+-- Table `nc_chase`.`reassign`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nc_chase_3`.`reassign` (
+CREATE TABLE IF NOT EXISTS `nc_chase`.`reassign` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `chaser_id` VARCHAR(4) NOT NULL,
@@ -95,9 +97,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nc_chase_3`.`report`
+-- Table `nc_chase`.`report`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nc_chase_3`.`report` (
+CREATE TABLE IF NOT EXISTS `nc_chase`.`report` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `email` VARCHAR(64) NOT NULL,

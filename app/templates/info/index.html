@@ -1,33 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="..\..\..\app\static\index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>NC Chase 21</title>
-</head>
-<body>
-    <div id="backGround">
-        <img id="logo" src="../../static/assets/MainLogo-removebg.png" alt="Logo of chase21" onmousemove="openNav()">
-        <h3 id='subtitle'><strong><i>--Brought to you by THE CLUB</i></strong></h3>
-    </div>
-    <div id="navContainer">
-        <script>
-            function openNav() {
-                document.getElementById("navContainer").style.width = "100%";
-            }
-            function closeNav() {
-                document.getElementById("navContainer").style.width = "0%";
-            }
-        </script>
-        <nav>
-            <a href="javascript:void(0)" id="closeBtn" onclick="closeNav()">&times;</a>
-            <div style="top: 0; left: 0;"><a href="../info/index.html">Home</a></div>
-            <div style="top: 0; right: 0;"><a href="../info/scores.html">Current game</a></div>
-            <div style="bottom: 0; left: 0;"><a href="../forms/all_forms.html">Forms</a></div>
-            <div style="bottom: 0; right: 0;"><a href="../info/contact.html">Contact</a></div>
-        </nav>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <section>
+        <h1>Welcome to NCChase!</h1>
+    </section>
+
+    <section>
+
+        <h2>What is it?</h2>
+        <p style="color: black;">
+            NC Chase is a live-action chase game. Everyone trying to evade being caught, and trying to catch their own runner.
+            Every morning, you will be emailed a "runner", who you are trying to catch. Your mission is to identify, track down, and catch your runner by placing a peg on them.
+            In the same way that you're chasing someone, someone is also chasing you! To survive, you'll need to play both offensively and defensively.
+            Your team is your house, who will never be chasing you. Work together with your house to be the best and win house points!            
+        </p>  
+    </section>
+    <section>
+        <h2>Some rules</h2>
+            <ul>
+                <li>No breaking school rules</li>
+                <li>The game only runs before school, interval and lunch.</li>
+                <li>Gameplay shouldn't interrupt clubs or other *smth smth important activities*</li>
+                <li>Please play fair and keep information within your House.</li>
+            </ul>
+    </section>
+    <section>
+        <h2>Defending yourself:</h2>
+        <ul>
+            <li>No one should ever have to use force. Doors should not be busted down etc.</li>
+            <li>Use common sense.</li>
+            <li>You may run away to prevent your Chaser from catching you.</li>
+        </ul>
+    </section>
+
+{% endblock content %}

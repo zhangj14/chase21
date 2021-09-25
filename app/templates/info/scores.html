@@ -10,33 +10,24 @@
 {% endblock links %}
 
 {% block content %}
-    <script>
-        function openTab(evt, tabName) {
-            // Declare all variables
-            var i, tabcontent, tablinks;
-          
-            // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabscontent");
-            for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
-            }
-          
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-          
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-        // document.getElementById("defaultOpen").click();
-    </script>
     <div class="tab">
         <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'All_Info')">All players</button>
         <button class="tablinks" onclick="openTab(event, 'House')">Houses</button>
         <button class="tablinks" onclick="openTab(event, 'Form_Class')">Form classes</button>
+    </div>
+    <div id='House' class="tabscontent">
+        <table id="house">
+            <thead>
+                <tr>
+                    {% for header in house_header %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
     <div id="All_Info" class="tabscontent">
         <div class="filters">
@@ -56,19 +47,24 @@
         </div>
         <table id="all_info">
             <!-- create headers -->
-            <tr>
-                {% for header in headers %}
-                    <th>{{ header }}</th>
+            <thead>
+                <tr>
+                {% for header in all_info_headers %}
+                    <th onclick="headerClick(this)">{{ header }}</th>
                 {% endfor %}
-            <!-- fetch and display data from flask -->
-            </tr>
-            {% for row in data %}
+                </tr>
+            </thead>
+            
+            <tbody id="all_info_body">
+                <!-- fetch and display data from flask -->
+                {% for row in data %}
                 <tr>
                     {% for cell in row %}
                         <td>{{ cell }}</td>
                     {% endfor %}
                 </tr>
-            {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     </div>
     <div id="House" class="tabscontent"></div>
