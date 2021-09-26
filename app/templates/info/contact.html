@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contact
+{% endblock title %}
+
+<style>
+    article::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    section {
+        width: 33.3%;
+    }
+</style>
+
+{% block content %}
+
+    <section>
+        <h1>Contact Us</h1>
+    </section>
+    <section>
+    <h2>Questions? Comments? Queries? You can: </h2>
+    <ul>
+        <li>DM us on Instagram <a href=https://www.instagram.com/newlands.college.chase/>@newlands.college.chase</a></li>
+        <li>Or email <a href=mailto:gamemaster@newlands.school.nz>gamemaster@newlands.school.nz</a></li>
+    </ul>
+    <br>
+    <p>While we'll try our best to get back to you as soon as possible, we're also students so please be patient while we finish our assignments.</p>
+    </section>
+    
+{% endblock content %}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- information for browser and search engine -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- ReactJs -->
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <!-- stylesheet from static folder, personalized -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+    <title>{% block title %}{% endblock title %} | CHASE 21</title>
+    {% block links %}{% endblock links %}
+</head>
+<body>
+    <!-- nav bar and logo -->
+    <header>
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="">
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ url_for('info.index') }}">Home</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('info.contact') }}">Contact</a>                    
+                </li>
+                <li>                
+                    <a href="{{ url_for('info.current_game') }}">Current Game</a>
+                </li>
+                <li>                
+                    <a href="{{ url_for('forms.forms') }}">Forms</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+        <section>
+            {% block section %}
+            {% endblock section %}
+            {% block message %}
+            <div>
+                {% for message in get_flashed_messages() %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+ 
+            {% endblock message %}
+        </section>
+    {% endblock content %}
+    <!-- footer and logo -->
+    <footer>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ url_for('info.index') }}">Home</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('info.contact') }}">Contact</a>                    
+                </li>
+                <li>                
+                    <a href="{{ url_for('info.current_game') }}">Current Game</a>
+                </li>
+                <li>                
+                    <a href="{{ url_for('forms.forms') }}">Forms</a>
+                </li>
+            </ul>
+        </nav>
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="">
+    </footer>
+
+</body>
+</html>

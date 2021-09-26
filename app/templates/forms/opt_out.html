@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Opt-out 
+{% endblock title %}
+
+{% block section %}
+        <form method="post">
+            <label for="chaser_id">Your Email</label>
+            <br>
+            <input type="email" name="email" id="email" placeholder="doej@newlands.school.nz" required>
+            <br>
+            <label for="runner_id">Reasons</label>
+            <br>
+            <textarea type="text" name="reasons" id="report" rows="6" cols="50" maxlength="300" required></textarea>
+            <br>
+            <input class="sub_button" type="submit" value="Submit">
+        </form>
+{% endblock section %}

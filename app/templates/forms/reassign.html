@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Reassign 
+{% endblock title %}
+
+{% block section %}
+        <form action="" method="post">
+            <label for="chaser_id">Your ID</label>
+            <br>
+            <input type="text" name="chaser_id" id="chaser_id" placeholder="S100" maxlength="4" required>
+            <br>
+            <label for="runner_id" placeholder="S100">Your First Name</label>
+            <br>
+            <input type="text" name="fname" id="fname" placeholder="John Doe" required>
+            <br>
+            <input class="sub_button" type="submit" value="Submit">
+        </form>
+        <p>Please be patient! Our system will process your request and it might take a moment for you to receive an update.</p>
+{% endblock section %}

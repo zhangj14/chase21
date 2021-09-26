@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  height: 100%;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, rgba(219,19,19,1) 13%, rgba(0,73,173,1) 93%);
+}
+
+header::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+header img {
+  margin-left: 1%;
+  width: 9%;
+  float: left;
+}
+
+header nav {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+header nav ul {
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+}
+
+header nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  opacity: 0.8;
+  text-align: center;
+  padding: 1vw;
+  font-size: 1.5vw;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav ul li a:hover, nav ul li a:active, nav ul li a:focus {
+  text-decoration: none;
+  color: white;
+  opacity: 1;
+}
+
+section {
+  border-style: solid;
+  border-color: #dddddd;
+  border-width: 3vw;
+  border-bottom: none;
+  margin-top: none;
+  padding: 2%;
+}
+
+section h1 {
+  color: black;
+  font-family: "Calibri";
+  font-size: 40px;
+}
+
+footer {
+  position: relative;
+  bottom: 0%;
+  background: linear-gradient(135deg, rgba(238,235,9,1) 13%, rgba(0,173,22,1) 93%);
+}
+
+footer::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+footer img {
+  margin-right: 1%;
+  width: 9%;
+  float: right;
+}
+
+footer nav {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+footer nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding-right: 1vw;
+  overflow: hidden;
+}
+
+footer nav ul li {
+  float: right;
+}
+
+a, p, ul li {
+  font-family: "Calibri";
+  font-size: 20px;
+  margin: 2px;
+}
+
+ol li {
+  font-family: "Calibri";
+  color: rgb(68,69,71);
+  font-size: 20px;
+  /* margin: 2px; */
+}
+
+label {
+  font-family: "Calibri";
+  font-size: 35px;
+  font-weight: bold;
+  margin: 2px;
+}
+
+input{
+  /* margin-top: 2px; */
+  font-size: 20px;
+  height: 35px;
+  width: 25%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  font-size: 20px; 
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+}
+
+h2 {
+  font-family: "Calibri";
+  font-size: 30px;
+}
+
+.sub_button {
+  margin-top: 5px;
+  font-family: "Calibri";
+  font-size: 20px;
+  font-weight: bold;
+  width:auto;
+  /* margin: 2px; */
+}
+
+#report_box{
+  width: 50%;
+  height: 150px
+}
