@@ -21,7 +21,7 @@ def assign_ID():
     letters = ["A", "B", "C", "D", "E", "F", "G", "H", "K", "M", "R", "T", "X"]
     id_list = []
     for letter in letters:
-        new_letter_list = [letter + "{}".format(i) for i in range(101, 500)]
+        new_letter_list = [letter + f"{i}" for i in range(101, 500)]
         id_list += new_letter_list
     shuffle(id_list)
 
@@ -38,7 +38,7 @@ def assign_ID():
                             WHERE id = {alive_id[i]['id']}")
         row_count += 1
 
-    print("{} row(s) affected.".format(row_count))
+    print(f"{row_count} row(s) affected.")
     cnx.commit()
 
 def assign_runner():
@@ -51,12 +51,12 @@ def assign_runner():
     for year_level in range(9, 13):
 
         # Fetch all alive players within a year group as a pool.
-        print("\nSelecting alive players year{}.".format(year_level))
+        print(f"\nSelecting alive players year{year_level}.")
         cursor.execute(f"SELECT chaser_id, chaser_count, house \
                         FROM all_players WHERE game_status = 'alive' \
                         AND year_level = {year_level}")
         all_alive = cursor.fetchall()
-        print("{} row(s) selected.".format(len(all_alive)))
+        print(f"{len(all_alive)} row(s) selected.")
 
         # Randomize first, then sort by number of chasers.
         shuffle(all_alive)
@@ -77,7 +77,7 @@ def assign_runner():
         for house in houses:
 
             # Select alive people in a house.
-            print("Assigning alive year{} in {}...".format(year_level, house))
+            print(f"Assigning alive year{year_level} in {house}...")
             cursor.execute(f"SELECT id FROM all_players \
                             WHERE game_status = 'alive' \
                             AND house = '{house['name']}' \
