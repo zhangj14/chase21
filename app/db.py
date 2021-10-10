@@ -3,44 +3,60 @@ from flask import g
 from flask.cli import with_appcontext
 import mysql.connector
 from . import config
+
 def get_db(dict=True):
-    # get database connection
-    # if connection exists in g, return db stored in g
-    # if not, create new connection, add to g, then return
-    # if "db" not in g:
-    db = mysql.connector.connect(**config.mysql)
-    cursor = db.cursor(dictionary=dict)
-    return db, cursor
+    """
+    To return database connection and a cursor. 
+    The returned values of cursor queries are default to dictionaries.
+    """
+    # Get database connection.
+    # If connection exists in g, return db stored in g.
+    # If not, create new connection, add to g, then return.
+    if "db" not in g:
+        db = mysql.connector.connect(**config.mysql)
+        cursor = db.cursor(dictionary=dict)
+        return db, cursor
 
 def close_db(e=None):
-    # remove database from current session
-    # close cursor and connection
+    """
+    Remove database from current session, close cursor and connection.
+    """
     db = g.pop("db", None)
     if db:
         db.close()
 
 def init_db():
-    # get db connection
+    """
+    Initialize the database with a csv file provided by the school 
+    including first name, lastname, formclass, house and email.
+    """
+    # Get db connection.
     db, cursor = get_db()
-    # with clause is used for error handling and close the file properly
+    # With clause is used for error handling and closing the file properly.
     with open("app/schema.sql") as f:
-        # mulit used to return an iterator
+        # Mulit used to return an iterator.
         result_iterator = cursor.execute(f.read(), multi=True)
         for r in result_iterator:
-            # Will print out a short representation of the query
+            # Will print out a short representation of the query.
             print("Running query: ", r)  
             print(f"Affected {r.rowcount} rows" )
 
-# add command to cmd
+# Add command to the app.
 @click.command("init-db")
 @with_appcontext
 def init_db_command():
-    init_db()
-    click.echo("Initialized the database.")
+    decision = input("WARNING! This command initializes the whole database, \
+current game information will be lost. \
+\n(y/n)?")
+    if decision == 'y' or decision == 'Y':
+        init_db()
+        click.echo("Initialized the database.")
+    else:
+        print("Aborted")
 
-# register with the application
+# Register with the application
 def init_app(app):
-    # close db to clean up after returning a response
+    # Close db to clean up after returning a response.
     app.teardown_appcontext(close_db)
-    # add command to the app
+    # Add command to the app.
     app.cli.add_command(init_db_command)
