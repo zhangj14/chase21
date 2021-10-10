@@ -30,6 +30,8 @@ def assign_ID():
     alive_id = cursor.fetchall()
 
     row_count = 0
+    # Remove existing values in `chaser_id` due to its unique key constraint.
+    cursor.execute("ALTER TABLE all_players DROP COLUMN `chaser_id`, ADD COLUMN `chaser_id` VARCHAR(4) NULL DEFAULT NULL AFTER `house`")
     for i in range(len(alive_id)):
         # Update their chaser ids, remove used ids.
         cursor.execute(f"UPDATE all_players \
